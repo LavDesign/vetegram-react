@@ -46,16 +46,12 @@ function Header() {
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
-  const renderItem = (link) => (
-    <NavItem key={link.id} link={link} active={activeId === link.id} onSelect={closeMenu} />
-  )
+  const renderItem = (link) => <NavItem key={link.id} link={link} active={activeId === link.id} onSelect={closeMenu} />
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 bg-brand text-ink transition-shadow duration-300 ${
-        scrolled
-          ? 'shadow-[0_5px_10px_0_rgba(138,155,165,0.15)]'
-          : 'shadow-[0_10px_30px_0_rgba(138,155,165,0.15)]'
+        scrolled ? 'shadow-[0_5px_10px_0_rgba(138,155,165,0.15)]' : 'shadow-[0_10px_30px_0_rgba(138,155,165,0.15)]'
       }`}
     >
       <nav aria-label="Principal" className="mx-auto max-w-6xl">
