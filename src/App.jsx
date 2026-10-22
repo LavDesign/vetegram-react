@@ -1,10 +1,13 @@
+import About from './components/About'
 import BackToTop from './components/BackToTop'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import Hero from './components/Hero'
 import { navLinks } from './data/site'
 
-// Temporary placeholder sections to exercise the shell; replaced in M3.
-const sectionStyles = ['bg-ink text-white', 'bg-white text-ink', 'bg-ink text-white', 'bg-ocean text-white']
+// Temporary placeholder sections for the parts not migrated yet.
+const placeholderLinks = navLinks.filter((link) => link.id === 'servicios' || link.id === 'contacto')
+const sectionStyles = ['bg-ink text-white', 'bg-ocean text-white']
 
 function App() {
   return (
@@ -17,7 +20,9 @@ function App() {
       </a>
       <Header />
       <main id="main" tabIndex={-1} className="focus:outline-none">
-        {navLinks.map((link, index) => (
+        <Hero />
+        <About />
+        {placeholderLinks.map((link, index) => (
           <section
             key={link.id}
             id={link.id}
