@@ -1,44 +1,11 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
 import { heroSlides } from '../data/hero'
+import { useCarousel } from '../hooks/useCarousel'
 
 const TRACK_ID = 'hero-slides'
 
 function Hero() {
-  const trackRef = useRef(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  // The scroll position is the source of truth: swipes, buttons and keys all just scroll the track.
-  useEffect(() => {
-    const track = trackRef.current
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveIndex(Number(entry.target.dataset.index))
-        })
-      },
-      { root: track, threshold: 0.6 },
-    )
-    Array.from(track.children).forEach((slide) => observer.observe(slide))
-    return () => observer.disconnect()
-  }, [])
-
-  const goTo = (index) => {
-    const track = trackRef.current
-    const target = (index + heroSlides.length) % heroSlides.length
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    track.scrollTo({ left: target * track.clientWidth, behavior: reduceMotion ? 'instant' : 'smooth' })
-  }
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'ArrowLeft') {
-      event.preventDefault()
-      goTo(activeIndex - 1)
-    } else if (event.key === 'ArrowRight') {
-      event.preventDefault()
-      goTo(activeIndex + 1)
-    }
-  }
+  const { trackRef, activeIndex, goTo, next, prev, handleKeyDown } = useCarousel(heroSlides.length)
 
   return (
     <section
@@ -61,7 +28,6 @@ function Hero() {
             return (
               <li
                 key={slide.id}
-                data-index={index}
                 aria-roledescription="diapositiva"
                 aria-label={`${index + 1} de ${heroSlides.length}`}
                 className="relative h-[60svh] min-h-96 w-full shrink-0 snap-start overflow-hidden md:h-[90svh]"
@@ -105,7 +71,7 @@ function Hero() {
 
         <button
           type="button"
-          onClick={() => goTo(activeIndex - 1)}
+          onClick={prev}
           aria-label="Diapositiva anterior"
           aria-controls={TRACK_ID}
           className="absolute top-1/2 left-2 grid size-11 place-items-center rounded-full bg-ink/50 transition-colors duration-200 hover:bg-accent hover:text-ink -translate-y-1/2 md:left-4"
@@ -114,7 +80,7 @@ function Hero() {
         </button>
         <button
           type="button"
-          onClick={() => goTo(activeIndex + 1)}
+          onClick={next}
           aria-label="Diapositiva siguiente"
           aria-controls={TRACK_ID}
           className="absolute top-1/2 right-2 grid size-11 place-items-center rounded-full bg-ink/50 transition-colors duration-200 hover:bg-accent hover:text-ink -translate-y-1/2 md:right-4"

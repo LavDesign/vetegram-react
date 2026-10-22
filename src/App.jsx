@@ -3,11 +3,11 @@ import BackToTop from './components/BackToTop'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import Services from './components/Services'
 import { navLinks } from './data/site'
 
-// Temporary placeholder sections for the parts not migrated yet.
-const placeholderLinks = navLinks.filter((link) => link.id === 'servicios' || link.id === 'contacto')
-const sectionStyles = ['bg-ink text-white', 'bg-ocean text-white']
+// Temporary placeholder section for the part not migrated yet.
+const placeholderLinks = navLinks.filter((link) => link.id === 'contacto')
 
 function App() {
   return (
@@ -22,12 +22,13 @@ function App() {
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero />
         <About />
-        {placeholderLinks.map((link, index) => (
+        <Services />
+        {placeholderLinks.map((link) => (
           <section
             key={link.id}
             id={link.id}
             aria-labelledby={`${link.id}-title`}
-            className={`flex min-h-svh items-center justify-center px-4 ${sectionStyles[index]}`}
+            className="flex min-h-svh items-center justify-center bg-ocean px-4 text-white"
           >
             <h2 id={`${link.id}-title`} className="text-4xl font-semibold italic md:text-5xl">
               {link.label}
