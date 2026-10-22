@@ -44,7 +44,7 @@ function About() {
               height="1088"
               loading="lazy"
               decoding="async"
-              className={`relative mt-[38%] w-[70%] md:mt-[55%] md:w-[85%] ${picturesInView ? 'motion-safe:animate-shake-y' : ''}`}
+              className={`relative mt-[38%] w-[70%] origin-bottom md:mt-[55%] md:w-[85%] ${picturesInView ? 'motion-safe:animate-cat-jump' : ''}`}
             />
           </div>
         </div>
