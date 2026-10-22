@@ -136,3 +136,7 @@
     }
   }
 }
+
+/* Parallax only where background-attachment: fixed works well: mouse/trackpad devices
+   (touch browsers ignore or glitch it) and users who haven't asked for reduced motion. */
+@custom-variant parallax (@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine));
