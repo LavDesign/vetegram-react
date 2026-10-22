@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/roboto';
+@import '@fontsource-variable/roboto/wght-italic.css';
+
+/* Brand tokens taken from the original site's styles.css */
+@theme {
+  --font-sans: 'Roboto Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #4cc5f9;
+  --color-accent: #f29f01;
+  --color-ink: #152630;
+  --color-ocean: #4690bf;
+}
+
+::selection {
+  color: var(--color-white);
+  background-color: var(--color-accent);
+}
