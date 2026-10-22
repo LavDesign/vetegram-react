@@ -16,3 +16,22 @@
   color: var(--color-white);
   background-color: var(--color-accent);
 }
+
+@layer base {
+  html {
+    /* Keeps anchored sections clear of the fixed header */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Visible focus everywhere; currentColor already contrasts with each surface */
+  :focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+}
