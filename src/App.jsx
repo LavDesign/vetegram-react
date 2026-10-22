@@ -1,13 +1,10 @@
 import About from './components/About'
 import BackToTop from './components/BackToTop'
+import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Services from './components/Services'
-import { navLinks } from './data/site'
-
-// Temporary placeholder section for the part not migrated yet.
-const placeholderLinks = navLinks.filter((link) => link.id === 'contacto')
 
 function App() {
   return (
@@ -23,18 +20,7 @@ function App() {
         <Hero />
         <About />
         <Services />
-        {placeholderLinks.map((link) => (
-          <section
-            key={link.id}
-            id={link.id}
-            aria-labelledby={`${link.id}-title`}
-            className="flex min-h-svh items-center justify-center bg-ocean px-4 text-white"
-          >
-            <h2 id={`${link.id}-title`} className="text-4xl font-semibold italic md:text-5xl">
-              {link.label}
-            </h2>
-          </section>
-        ))}
+        <Contact />
       </main>
       <Footer />
       <BackToTop />
