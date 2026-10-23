@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { services, servicesIntro } from '../data/services'
 import { useCarousel } from '../hooks/useCarousel'
 import ServiceCard from './ServiceCard'
@@ -9,7 +10,23 @@ const arrowClassName =
   'grid size-11 shrink-0 place-items-center rounded-full bg-accent text-ink shadow-[0_14px_25px_-10px_#92b4d0] transition-colors duration-300 hover:bg-white xl:absolute xl:top-[calc(50%-1.75rem)] xl:-translate-y-1/2'
 
 function Services() {
-  const { trackRef, activeIndex, lastIndex, goTo, next, prev, handleKeyDown } = useCarousel(services.length)
+  const { trackRef, visibleIndexes, goTo, next, prev, handleKeyDown } = useCarousel(services.length)
+  const [announcement, setAnnouncement] = useState('')
+
+  // Several indicators light up at once, so instead of aria-current the visible range is announced in a live
+  // region. It waits for the scroll to settle so a smooth scroll doesn't queue the intermediate ranges.
+  useEffect(() => {
+    const first = visibleIndexes[0] + 1
+    const last = visibleIndexes.at(-1) + 1
+    const timeout = setTimeout(() => {
+      setAnnouncement(
+        first === last
+          ? `Mostrando servicio ${first} de ${services.length}`
+          : `Mostrando servicios ${first} a ${last} de ${services.length}`,
+      )
+    }, 300)
+    return () => clearTimeout(timeout)
+  }, [visibleIndexes])
   // Autoplay removed on purpose (usability and WCAG 2.2.2): the original's auto-advance is replaced
   // by manual navigation only, like the Hero.
 
@@ -48,6 +65,10 @@ function Services() {
             ))}
           </ul>
 
+          <p aria-live="polite" className="sr-only">
+            {announcement}
+          </p>
+
           {/* Arrows sit beside the track only from xl: below that they'd share the right edge with the fixed
               "Volver arriba" button. Left-aligned on mobile, centred on tablet, for the same reason. */}
           <div className="mt-2 flex items-center justify-start gap-2 md:justify-center">
@@ -61,23 +82,25 @@ function Services() {
               <ChevronLeft aria-hidden="true" className="size-7" />
             </button>
             <div className="flex">
-              {Array.from({ length: lastIndex + 1 }, (_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => goTo(index)}
-                  aria-label={`Mostrar desde el servicio ${index + 1}`}
-                  aria-current={index === activeIndex ? 'true' : undefined}
-                  aria-controls={TRACK_ID}
-                  className="group grid h-11 w-6 place-items-center"
-                >
-                  <span
-                    className={`h-1.5 w-4 rounded-full transition-colors duration-200 ${
-                      index === activeIndex ? 'bg-accent' : 'bg-white/60 group-hover:bg-white'
-                    }`}
-                  />
-                </button>
-              ))}
+              {services.map((service, index) => {
+                const visible = visibleIndexes.includes(index)
+                return (
+                  <button
+                    key={service.id}
+                    type="button"
+                    onClick={() => goTo(index)}
+                    aria-label={`Ir al servicio ${index + 1}`}
+                    aria-controls={TRACK_ID}
+                    className="group grid h-11 w-6 place-items-center"
+                  >
+                    <span
+                      className={`h-1.5 w-4 rounded-full transition-colors duration-200 ${
+                        visible ? 'bg-accent' : 'bg-white/60 group-hover:bg-white'
+                      }`}
+                    />
+                  </button>
+                )
+              })}
             </div>
             <button
               type="button"
