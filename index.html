@@ -3,11 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vetegram Online</title>
     <meta
       name="description"
-      content="Vetegram: sistema de gestión veterinaria para clínicas en Costa Rica y Centroamérica."
+      content="Vetegram es un sistema veterinario en línea para clínicas de Costa Rica y Centroamérica: pacientes, historias clínicas, citas, facturación electrónica e inventario en un solo lugar."
     />
-    <title>Vetegram Online</title>
+    <meta name="theme-color" content="#152630" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Hero LCP image: start downloading before the JS renders the slider (media queries match Hero.jsx) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/src/assets/images/hero-welcome-mobile.webp"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/src/assets/images/hero-welcome.webp"
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <div id="root"></div>

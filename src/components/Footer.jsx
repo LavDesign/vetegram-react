@@ -17,7 +17,7 @@ function Footer() {
     <footer className="bg-ink pt-12 pb-24 text-white md:pb-12">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 text-center md:grid-cols-3 md:gap-8 md:text-left">
         <a href="#inicio" className="mx-auto block w-[90%] max-w-xs md:mx-0 md:w-[60%]">
-          <img src={logo} alt="Vetegram" className="w-full" />
+          <img src={logo} alt="Vetegram" width="1000" height="224" loading="lazy" className="h-auto w-full" />
         </a>
 
         <address className="space-y-2 leading-7 not-italic">
@@ -40,7 +40,7 @@ function Footer() {
             </a>
           </p>
           <p className="inline-flex items-center gap-2.5">
-            <img src={flag} alt="" className="w-5" />
+            <img src={flag} alt="" width="20" height="14" loading="lazy" className="w-5" />
             {contact.region}
           </p>
         </address>

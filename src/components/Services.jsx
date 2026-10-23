@@ -6,7 +6,7 @@ import ServiceCard from './ServiceCard'
 const TRACK_ID = 'services-slides'
 
 const arrowClassName =
-  'grid size-11 shrink-0 place-items-center rounded-full bg-accent text-ink shadow-[0_14px_25px_-10px_#92b4d0] transition-colors duration-300 hover:bg-white md:absolute md:top-[calc(50%-1.75rem)] md:-translate-y-1/2'
+  'grid size-11 shrink-0 place-items-center rounded-full bg-accent text-ink shadow-[0_14px_25px_-10px_#92b4d0] transition-colors duration-300 hover:bg-white xl:absolute xl:top-[calc(50%-1.75rem)] xl:-translate-y-1/2'
 
 function Services() {
   const { trackRef, activeIndex, lastIndex, goTo, next, prev, handleKeyDown } = useCarousel(services.length)
@@ -26,13 +26,15 @@ function Services() {
           aria-roledescription="carrusel"
           aria-label="Servicios"
           onKeyDown={handleKeyDown}
-          className="relative mt-8 md:px-14"
+          className="relative mt-8 xl:px-14"
         >
           <ul
             id={TRACK_ID}
             ref={trackRef}
             aria-label="Tarjetas de servicios"
-            className="flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            // Focusable so keyboard users can scroll it (axe: scrollable-region-focusable); arrow keys are handled by the region
+            tabIndex={0}
+            className="flex snap-x snap-mandatory gap-6 focus-visible:-outline-offset-4 overflow-x-auto overscroll-x-contain py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {services.map((service, index) => (
               <li
@@ -46,14 +48,15 @@ function Services() {
             ))}
           </ul>
 
-          {/* Left-aligned on mobile so the fixed "Volver arriba" button (bottom-right) never covers the arrows */}
+          {/* Arrows sit beside the track only from xl: below that they'd share the right edge with the fixed
+              "Volver arriba" button. Left-aligned on mobile, centred on tablet, for the same reason. */}
           <div className="mt-2 flex items-center justify-start gap-2 md:justify-center">
             <button
               type="button"
               onClick={prev}
               aria-label="Servicio anterior"
               aria-controls={TRACK_ID}
-              className={`${arrowClassName} md:left-0`}
+              className={`${arrowClassName} xl:left-0`}
             >
               <ChevronLeft aria-hidden="true" className="size-7" />
             </button>
@@ -81,7 +84,7 @@ function Services() {
               onClick={next}
               aria-label="Servicio siguiente"
               aria-controls={TRACK_ID}
-              className={`${arrowClassName} md:right-0`}
+              className={`${arrowClassName} xl:right-0`}
             >
               <ChevronRight aria-hidden="true" className="size-7" />
             </button>

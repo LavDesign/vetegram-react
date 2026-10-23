@@ -58,7 +58,7 @@ function Header() {
         {/* Mobile bar: logo on the left, menu toggle on the right */}
         <div className="flex items-center justify-between px-4 py-2 md:hidden">
           <a href="#inicio" onClick={closeMenu}>
-            <img src={logo} alt="Vetegram" className="h-12 w-auto" />
+            <img src={logo} alt="Vetegram" width="600" height="521" className="h-12 w-auto" />
           </a>
           <button
             ref={toggleRef}
@@ -97,6 +97,8 @@ function Header() {
               <img
                 src={logo}
                 alt="Vetegram"
+                width="600"
+                height="521"
                 className={`w-auto transition-[height] duration-300 motion-reduce:transition-none ${
                   scrolled ? 'h-15.5' : 'h-22'
                 }`}

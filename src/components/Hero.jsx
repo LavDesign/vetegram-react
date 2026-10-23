@@ -20,7 +20,9 @@ function Hero() {
           id={TRACK_ID}
           ref={trackRef}
           aria-label="Diapositivas"
-          className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          // Focusable so keyboard users can scroll it (axe: scrollable-region-focusable); arrow keys are handled by the region
+          tabIndex={0}
+          className="flex snap-x snap-mandatory focus-visible:-outline-offset-4 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {heroSlides.map((slide, index) => {
             const active = index === activeIndex
@@ -32,13 +34,18 @@ function Hero() {
                 aria-label={`${index + 1} de ${heroSlides.length}`}
                 className="relative h-[60svh] min-h-96 w-full shrink-0 snap-start overflow-hidden md:h-[90svh]"
               >
-                <img
-                  src={slide.image}
-                  alt={slide.alt}
-                  fetchPriority={index === 0 ? 'high' : undefined}
-                  decoding="async"
-                  className="absolute inset-0 size-full object-cover"
-                />
+                {/* The first slide is the LCP image; index.html preloads both of its sources with the same media query */}
+                <picture>
+                  <source media="(max-width: 767px)" srcSet={slide.imageMobile} />
+                  <img
+                    src={slide.image}
+                    alt={slide.alt}
+                    fetchPriority={index === 0 ? 'high' : undefined}
+                    loading={index === 0 ? undefined : 'lazy'}
+                    decoding="async"
+                    className="absolute inset-0 size-full object-cover"
+                  />
+                </picture>
                 {/* Semi-transparent oval behind the caption, as in the original */}
                 <div
                   aria-hidden="true"
