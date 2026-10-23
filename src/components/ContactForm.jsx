@@ -6,8 +6,9 @@ import { contact } from '../data/site'
 const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID
 const emptyValues = Object.fromEntries(contactFields.map((field) => [field.name, '']))
 
+// The global focus outline uses currentColor (ink), invisible on the dark box, so fields use the accent instead
 const inputClassName =
-  'block w-full rounded-[10px] border-2 bg-white px-5 text-base text-ink transition-colors duration-300 outline-none focus:border-accent'
+  'block w-full rounded-[10px] border-2 bg-white px-5 text-base text-ink transition-colors duration-300 focus:border-accent focus-visible:outline-accent'
 
 function ContactForm() {
   const [values, setValues] = useState(emptyValues)
