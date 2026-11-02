@@ -106,7 +106,7 @@ src/
 
 ## Workflow
 
-AI-assisted: product, design and technical decisions and code review by me; implementation with Claude Code.
+AI-assisted: product, design and technical decisions and code review by me; implementation by an AI coding agent.
 
 Work was split into milestones, one branch and one pull request each, with a description, verification steps and measured results. CI must pass before merging into `main`.
 
@@ -135,6 +135,18 @@ Work was split into milestones, one branch and one pull request each, with a des
 - [Simple Icons](https://simpleicons.org) for the social logos (CC0 1.0).
 - [Roboto](https://fonts.google.com/specimen/Roboto) via [Fontsource](https://fontsource.org) (SIL Open Font License 1.1).
 - [Formspree](https://formspree.io) for form submissions.
+
+## Built by
+
+<a href="https://lavdesign.vercel.app">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/brand/lav-lockup-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/brand/lav-lockup-light.svg">
+    <img src="docs/brand/lav-lockup-light.svg" alt="LAV Design" width="240">
+  </picture>
+</a>
+
+[Luis Aguilar Vargas — LAV Design · Digital Experience Builder](https://lavdesign.vercel.app)
 
 ## License
 

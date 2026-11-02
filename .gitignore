@@ -36,3 +36,7 @@ coverage/
 
 # Local
 *.local
+
+# Local agent config (kept out of the public repo)
+CLAUDE.md
+.claude/
